@@ -1,0 +1,82 @@
+package Recruitment.gui;
+import Recruitment.dao.UserDao;
+import Recruitment.pojo.UserProfile;
+import Recruitment.pojo.User;
+import javax.swing.JOptionPane;
+import Recruitment.dbutil.DBConnection;
+public class LoginFrame extends javax.swing.JFrame {
+private String userId;
+private String password;
+    public LoginFrame() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+    }
+ private boolean validateInput()
+    {
+        userId=txtUserid.getText();
+        char[]pwd=txtPassword.getPassword();
+        if(userId.isEmpty()||pwd.length==0)
+            return false;
+        else{
+            password=String.valueOf(pwd);
+            return true;
+        }
+    }
+    private String getUserType()
+    {
+        if(jrbAdmin.isSelected())
+            return jrbAdmin.getText();
+        else if(jrbStudent.isSelected())
+            return jrbStudent.getText();
+        else
+            return null;
+    }
+ private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        boolean isValidInput=validateInput();
+        if(isValidInput==false)
+        {
+            JOptionPane.showMessageDialog(null,"UserId or Password cannot be left blank","Error!",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String userType=getUserType();
+        if(userType==null)
+                {
+                    JOptionPane.showMessageDialog(null,"Please Choose User Type","Error!",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+        try
+        {
+            User user=new User();
+            user.setUsername(userId);
+            user.setPassword(password);
+            user.setUserType(userType);
+            String username=UserDao.validateUser(user);
+            if(username!=null)
+            {
+                JOptionPane.showMessageDialog(null,"Login Accepted!","Welcome"+username,JOptionPane.INFORMATION_MESSAGE);
+                UserProfile.setUsername(username);
+                UserProfile.setUsertype(userType);
+                if(user.getUserType().equalsIgnoreCase("Admin"))
+                {
+                    AdminOptionsFrame adminFrame=new AdminOptionsFrame();
+                    adminFrame.setVisible(true);
+                }
+                else
+                {
+                    StudentOptionsFrame cashierFrame=new StudentOptionsFrame();
+                    cashierFrame.setVisible(true);
+                }
+                this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Invalid UserId/Password","Login Denied",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+            catch(Exception sq)
+                    {
+                JOptionPane.showMessageDialog(null,"DB Error:"+sq,"Exception!",JOptionPane.ERROR_MESSAGE);
+            sq.printStackTrace();
+                    }
+    }  

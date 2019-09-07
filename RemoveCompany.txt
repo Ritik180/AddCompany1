@@ -23,7 +23,7 @@ public class RemoveCompany extends javax.swing.JFrame {
          {
              try
              {      
-           
+           String r=txtCompanyName.getText();
            if(CompanyDao.removeCompany(r))
                      JOptionPane.showMessageDialog(null,"delete Successfully","Success!!",JOptionPane.INFORMATION_MESSAGE);
                 else

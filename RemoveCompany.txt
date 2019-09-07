@@ -1,0 +1,15 @@
+package Recruitment.gui;
+import Recruitment.dao.CompanyDao;
+import java.awt.Color;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+public class RemoveCompany extends javax.swing.JFrame {
+    public RemoveCompany() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+    }
+  private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        AdminOptionsFrame adminFrame=new AdminOptionsFrame();
+        adminFrame.setVisible(true);
+        this.dispose();
+    }                                       

@@ -1,0 +1,77 @@
+package Recruitment.gui;
+
+import Recruitment.dao.CompanyDao;
+import Recruitment.pojo.Company;
+import Recruitment.pojo.UserProfile;
+import java.awt.Color;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+public class AddCompany extends javax.swing.JFrame {
+    public AddCompany() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        lblUsername.setText("Hello "+UserProfile.getUsername());
+    }
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {                                       
+         if(validateInput()==false)
+        {
+            JOptionPane.showMessageDialog(null,"Please fill all the fields","Empty values!!",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+         else
+             {
+            try
+            {
+                Company c=new Company();
+                String compName=txtCompanyName.getText();
+                double eligibility=Double.parseDouble(txtEligibilityCriteria.getText());
+                String job=txtJob.getText(); 
+                c.setCompName(compName);
+                c.setEligibility(eligibility);
+                c.setJob(job);
+                if(CompanyDao.addCompany(c))
+                    JOptionPane.showMessageDialog(null,"Record Inserted Successfully","Success!!",JOptionPane.INFORMATION_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(null,"Could not add the company to the database","Error while inserting",JOptionPane.ERROR_MESSAGE);
+                
+            }
+             catch(SQLException ex)
+            {
+             JOptionPane.showMessageDialog(null,"Error in SQL"+ex,"Input error",JOptionPane.ERROR_MESSAGE);
+             ex.printStackTrace();
+            }
+            catch(NumberFormatException ex)
+            {
+               JOptionPane.showMessageDialog(null,"please input float value for Eligibility"+ex,"Input error",JOptionPane.ERROR_MESSAGE);
+             ex.printStackTrace(); 
+            }
+        }
+
+    }                             
+  private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        AdminOptionsFrame adminFrame=new AdminOptionsFrame();
+        adminFrame.setVisible(true);
+        this.dispose();
+    }                                       
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {                                       
+         this.dispose();
+        LoginFrame loginFrame=new LoginFrame();
+        loginFrame.setVisible(true);
+    }                                      
+
+    private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {                                       
+        lblLogout.setForeground(Color.YELLOW);
+    }    
+
+    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {                                      
+        lblLogout.setForeground(Color.WHITE);
+    }
+private boolean validateInput()
+{ 
+    if(txtCompanyName.getText().isEmpty()|| txtEligibilityCriteria.getText().isEmpty()|| txtJob.getText().isEmpty())
+        return false;
+    else
+        return true;
+}           

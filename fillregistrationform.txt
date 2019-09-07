@@ -1,0 +1,153 @@
+import Recruitment.dao.StudentDao;
+import Recruitment.dbutil.DBConnection;
+import Recruitment.pojo.Student;
+import Recruitment.pojo.UserProfile;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+ublic class PersonalDetails extends javax.swing.JFrame {
+
+    public PersonalDetails() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        lblUsername.setText("Hello "+UserProfile.getUsername());
+        BindCombo();
+        BindYear();
+        BindStream();
+        BindCompany();
+    }
+public void BindCombo()
+{
+     Connection conn=DBConnection.getConnection();
+     String qry="Select * from add_gender";
+     try{
+         Statement st=conn.createStatement();
+         ResultSet rs=st.executeQuery(qry);
+         while(rs.next())
+         {
+             jcGender.addItem(rs.getString(1));
+         }
+     }
+      catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,"Error while connecting to SQL","Exception",JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+}
+public void BindYear()
+{
+     Connection conn=DBConnection.getConnection();
+     String qry="Select * from add_year";
+     try{
+         Statement st=conn.createStatement();
+         ResultSet rs=st.executeQuery(qry);
+         while(rs.next())
+         {
+             jcYear.addItem(rs.getString(1));
+         }
+     }
+      catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,"Error while connecting to SQL","Exception",JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            
+        }    
+}
+public void BindStream()
+{
+     Connection conn=DBConnection.getConnection();
+     String qry="Select * from stream";
+     try{
+         Statement st=conn.createStatement();
+         ResultSet rs=st.executeQuery(qry);
+         while(rs.next())
+         {
+             jcStream.addItem(rs.getString(1));
+         }
+     }
+      catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,"Error while connecting to SQL","Exception",JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            
+        }    
+}
+public void BindCompany()
+{
+     Connection conn=DBConnection.getConnection();
+     String qry="Select company_name from company";
+     try{
+         Statement st=conn.createStatement();
+         ResultSet rs=st.executeQuery(qry);
+         while(rs.next())
+         {
+             jcCompName.addItem(rs.getString(1));
+         }
+     }
+      catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,"Error while connecting to SQL","Exception",JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            
+        }  
+ private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {                                            
+         if(validateInput()==false)
+        {
+            JOptionPane.showMessageDialog(null,"Please fill all the fields","Empty values!!",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+      else
+        {
+            try
+            {
+                Student s=new Student();
+                String studName=txtStudName.getText();
+                String studId=txtStudId.getText();
+                String p=jcStream.getSelectedItem().toString();
+                double cgpa=Double.parseDouble(txtCGPA.getText());
+                String g=jcGender.getSelectedItem().toString();
+                String y=jcYear.getSelectedItem().toString();
+                String add=txtAddress.getText();
+                double con=Double.parseDouble(txtContactNo.getText());
+                String comp=jcCompName.getSelectedItem().toString();
+                s.setStudName(studName);
+                s.setStudId(studId);
+                s.setStream(p);
+                s.setCGPA(cgpa);
+                s.setGender(g);
+                s.setYear(y);
+                s.setContact(con);
+                s.setAddress(add);
+                s.setCompany(comp);
+                if(StudentDao.addDetails(s))
+                    JOptionPane.showMessageDialog(null,"Record Inserted Successfully","Success!!",JOptionPane.INFORMATION_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(null,"Could not add student details to the database","Error while inserting",JOptionPane.ERROR_MESSAGE);
+            }
+            catch(SQLException ex)
+            {
+             JOptionPane.showMessageDialog(null,"Error in SQL"+ex,"Input error",JOptionPane.ERROR_MESSAGE);
+             ex.printStackTrace();
+            }
+            catch(NumberFormatException ex)
+            {
+               JOptionPane.showMessageDialog(null,"please input numeric value for name "+ex,"Input error",JOptionPane.ERROR_MESSAGE);
+             ex.printStackTrace(); 
+            }
+        }
+    }  
+private boolean validateInput()
+{ 
+    if(txtStudName.getText().isEmpty()|| txtStudId.getText().isEmpty()|| txtCGPA.getText().isEmpty() ||txtAddress.getText().isEmpty()||txtContactNo.getText().isEmpty())
+        return false;
+    else
+        return true;
+}    
+}
+} 
+                       

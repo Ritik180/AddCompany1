@@ -1,0 +1,66 @@
+package Recruitment.gui;
+
+import Recruitment.dao.CompanyDao;
+import Recruitment.pojo.Company;
+import Recruitment.pojo.UserProfile;
+import java.awt.Color;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+public class CampusPanel extends javax.swing.JFrame {
+
+   
+    public CampusPanel() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        lblUsername.setText("Hello "+UserProfile.getUsername());
+        showDataInTable(); 
+    }
+
+ private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        StudentOptionsFrame studentFrame=new StudentOptionsFrame();
+        studentFrame.setVisible(true);
+        this.dispose();
+    }                                       
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {                                       
+        this.dispose();
+        LoginFrame loginFrame=new LoginFrame();
+        loginFrame.setVisible(true);
+    }                                      
+
+    private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {                                       
+        lblLogout.setForeground(Color.YELLOW);
+    }                                      
+
+    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {                                      
+        lblLogout.setForeground(Color.WHITE);
+    }                                     
+public void showDataInTable()
+    {
+        try
+        {
+            ArrayList<Company> compList=CompanyDao.getAllData();
+           if(compList.isEmpty()==true)
+               JOptionPane.showMessageDialog(null,"Sorry..!!!No Records Present","Error",JOptionPane.INFORMATION_MESSAGE);
+           else
+           {
+               Object[]rows=new Object[5];
+               DefaultTableModel model=(DefaultTableModel)jtCompanyList.getModel();
+               for(Company c:compList)
+               {
+                   rows[0]=c.getCompName();
+                   rows[1]=c.getEligibility();
+                   rows[2]=c.getJob();
+                   model.addRow(rows);
+               }
+           }
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,"error while connecting to db","Exception",JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
+}

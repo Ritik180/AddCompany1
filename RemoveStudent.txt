@@ -7,7 +7,37 @@ public class RemoveStudent extends javax.swing.JFrame {
     public RemoveStudent() {
         initComponents();
          this.setLocationRelativeTo(null);
-    }    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    }
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        if(validateInput()==false)
+        {
+            JOptionPane.showMessageDialog(null,"Please fill all the fields","Empty values!!",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+       else
+         {
+             try
+             {
+           String e=txtStudName.getText();
+           String s=txtStudId.getText();
+           if(StudentDao.removeStudent(e,s))
+                     JOptionPane.showMessageDialog(null,"Record Deleted Successfully","Success!!",JOptionPane.INFORMATION_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(null,"Could not delete record to the database","Error while delete",JOptionPane.ERROR_MESSAGE);
+         }
+              catch(SQLException ex)
+            {
+             JOptionPane.showMessageDialog(null,"Error in SQL Updation"+ex,"Input error",JOptionPane.ERROR_MESSAGE);
+             ex.printStackTrace();
+            }
+            catch(NumberFormatException ex)
+            {
+               JOptionPane.showMessageDialog(null,"Please input numeric value for Student Id"+ex,"Input error",JOptionPane.ERROR_MESSAGE);
+             ex.printStackTrace(); 
+            }
+         }
+    }
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
         AdminOptionsFrame adminFrame=new AdminOptionsFrame();
         adminFrame.setVisible(true);
         this.dispose();

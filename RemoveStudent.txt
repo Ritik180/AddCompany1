@@ -7,4 +7,22 @@ public class RemoveStudent extends javax.swing.JFrame {
     public RemoveStudent() {
         initComponents();
          this.setLocationRelativeTo(null);
-    }
+    }    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        AdminOptionsFrame adminFrame=new AdminOptionsFrame();
+        adminFrame.setVisible(true);
+        this.dispose();
+    }                                       
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {                                       
+        this.dispose();
+        LoginFrame loginFrame=new LoginFrame();
+        loginFrame.setVisible(true);
+    }                                      
+
+    private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {                                       
+        lblLogout.setForeground(Color.YELLOW);
+    }                                      
+
+    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {                                      
+        lblLogout.setForeground(Color.WHITE);
+    }                  

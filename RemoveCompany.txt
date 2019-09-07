@@ -13,3 +13,31 @@ public class RemoveCompany extends javax.swing.JFrame {
         adminFrame.setVisible(true);
         this.dispose();
     }                                       
+   private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {                                          
+       if(validateInput()==false)
+        {
+            JOptionPane.showMessageDialog(null,"Please fill all the fields","Empty values!!",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+       else
+         {
+             try
+             {      
+           String r=txtCompanyName.getText();
+           if(CompanyDao.removeCompany(r))
+                     JOptionPane.showMessageDialog(null,"delete Successfully","Success!!",JOptionPane.INFORMATION_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(null,"Could not delete company to the database","Error while delete",JOptionPane.ERROR_MESSAGE);
+         }
+                catch(SQLException ex)
+            {
+             JOptionPane.showMessageDialog(null,"Error in SQL Updation"+ex,"Input error",JOptionPane.ERROR_MESSAGE);
+             ex.printStackTrace();
+            }
+            catch(NumberFormatException ex)
+            {
+               JOptionPane.showMessageDialog(null,"please input numeric value for Employee No.and salary"+ex,"Input error",JOptionPane.ERROR_MESSAGE);
+             ex.printStackTrace(); 
+            }
+         }
+    }              

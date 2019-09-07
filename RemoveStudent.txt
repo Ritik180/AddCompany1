@@ -1,0 +1,10 @@
+package Recruitment.gui;
+import Recruitment.dao.StudentDao;
+import java.awt.Color;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+public class RemoveStudent extends javax.swing.JFrame {
+    public RemoveStudent() {
+        initComponents();
+         this.setLocationRelativeTo(null);
+    }

@@ -1,0 +1,47 @@
+package Recruitment.gui;
+import Recruitment.dao.StudentDao;
+import Recruitment.pojo.Student;
+public class SearchStudent extends javax.swing.JFrame {
+  private HashMap<String,Student> studList;
+public SearchStudent() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        lblUsername.setText("Hello "+UserProfile.getUsername());
+    }
+private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        AdminOptionsFrame adminFrame=new AdminOptionsFrame();
+        adminFrame.setVisible(true);
+        this.dispose();
+    }
+  private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        String studId=txtStudentId.getText().trim();
+        if(studId.isEmpty())
+        {
+           JOptionPane.showMessageDialog(null,"Please input all values","Error",JOptionPane.ERROR_MESSAGE);
+           return;
+        }
+        try
+        {
+            int id=Integer.parseInt(studId);
+            Student obj=StudentDao.getStudentById(id);
+            if(null==obj)
+            {
+                JOptionPane.showMessageDialog(null,"record not found","problem",JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            txtStudName.setText(obj.getStudName());
+            txtBranch.setText(obj.getBranch());
+            txtCompany.setText(obj.getCompany());
+            
+        }
+        catch(NumberFormatException ex)
+        {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Please input integers only","Problem",JOptionPane.WARNING_MESSAGE);
+            
+        }
+        catch(SQLException ex)
+        {   ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Error in DB!..");
+        }
+    }

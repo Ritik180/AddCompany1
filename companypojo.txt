@@ -1,0 +1,31 @@
+package Recruitment.pojo;
+
+public class Company {
+    private String CompName;
+    private double Eligibility;
+    private String Job;
+
+    public String getCompName() {
+        return CompName;
+    }
+
+    public void setCompName(String CompName) {
+        this.CompName = CompName;
+    }
+
+    public double getEligibility() {
+        return Eligibility;
+    }
+
+    public void setEligibility(double Eligibility) {
+        this.Eligibility = Eligibility;
+    }
+
+    public String getJob() {
+        return Job;
+    }
+
+    public void setJob(String Job) {
+        this.Job = Job;
+    }
+}

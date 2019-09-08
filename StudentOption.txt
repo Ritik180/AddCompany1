@@ -1,10 +1,11 @@
 package Recruitment.gui;
-import Recruitment.dbutil.DBConnection;
-import Recruitment.pojo.UserProfile;
-import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 public class StudentOptionsFrame extends javax.swing.JFrame {
+public StudentOptionsFrame() {
+        initComponents();
+return;
+}
  private String getOption()
     {
         if(jrbCampusDetails.isSelected())

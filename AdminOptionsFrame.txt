@@ -1,0 +1,46 @@
+package Recruitment.gui;
+import Recruitment.dbutil.DBConnection;
+import Recruitment.pojo.UserProfile;
+public class AdminOptionsFrame extends javax.swing.JFrame {
+     public AdminOptionsFrame() {
+        initComponents();
+        super.setLocationRelativeTo(null);
+        lblUsername.setText("Hello "+UserProfile.getUsername());
+        return ;
+    }
+    private String getOption()
+    {
+        if(jrbViewRegisteredStudent.isSelected())
+            return jrbViewRegisteredStudent.getText();
+        else if(jrbRemoveStudent.isSelected())
+            return jrbRemoveStudent.getText();
+        else if(jrbSearchStudent.isSelected())
+            return jrbSearchStudent.getText();
+        else if(jrbAddCompanies.isSelected())
+            return jrbAddCompanies.getText();
+        else if(jrbRemoveCompany.isSelected())
+            return jrbRemoveCompany.getText();
+        else
+            return null;
+    }
+  private void btnDoTaskActionPerformed(java.awt.event.ActionEvent evt) {                                          
+         String task=getOption();
+        if(task==null)
+        {
+           JOptionPane.showMessageDialog(null,"please choose an option","Error",JOptionPane.ERROR_MESSAGE);
+           return;
+        }
+        JFrame jf=null;
+        if(task.equalsIgnoreCase("View Registered Students"))
+           jf=new ViewRegisteredStudents();
+        else if(task.equalsIgnoreCase("Remove Student"))
+           jf=new RemoveStudent();
+        else if(task.equalsIgnoreCase("Search Student"))
+            jf=new SearchStudent();
+        else if(task.equalsIgnoreCase("Add Companies"))
+            jf=new AddCompany();
+        else if(task.equalsIgnoreCase("Remove Company"))
+            jf=new RemoveCompany();
+        jf.setVisible(true);
+        this.dispose();
+    }               

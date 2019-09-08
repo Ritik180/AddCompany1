@@ -1,0 +1,36 @@
+package Recruitment.gui;
+import java.util.Random;
+public class SplashScreenFrame extends javax.swing.JFrame {
+    SplashThread sp;
+    public SplashScreenFrame() {
+        initComponents();
+        super.setLocationRelativeTo(null);
+        jProgressBar1.setStringPainted(true);
+        sp=new SplashThread();
+        sp.start();
+    }
+    class SplashThread extends Thread
+{
+    public void run()
+    {
+        int count=1;
+        Random r=new Random();
+        while(jProgressBar1.getValue()<jProgressBar1.getMaximum())
+        {
+            try
+            {
+                jProgressBar1.setValue((int)count);
+                Thread.sleep(1200);
+                count=count+r.nextInt(100);
+            }
+            catch(InterruptedException ex)
+            {
+                JOptionPane.showMessageDialog(null,"Exception in Thread:"+ex,"Error!",JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        }
+        SplashScreenFrame.this.dispose();
+        LoginFrame loginFrame=new LoginFrame();
+        loginFrame.setVisible(true);
+    }
+}

@@ -1,0 +1,103 @@
+package Recruitment.pojo;
+
+public class Student {
+    private String StudId;
+    private String StudName;
+    private String Stream;
+    private String Year;
+    private String Gender;
+    private String Address;
+    private double Contact;
+    private double CGPA;
+    private String Company;
+    private String Branch;
+    private int StudNo;
+
+    public int getStudNo() {
+        return StudNo;
+    }
+
+    public void setStudNo(int StudNo) {
+        this.StudNo = StudNo;
+    }
+
+    public String getBranch() {
+        return Branch;
+    }
+
+    public void setBranch(String Branch) {
+        this.Branch = Branch;
+    }
+
+    public String getCompany() {
+        return Company;
+    }
+
+    public void setCompany(String Company) {
+        this.Company = Company;
+    }
+
+    public String getGender() {
+        return Gender;
+    }
+
+    public void setGender(String Gender) {
+        this.Gender = Gender;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+
+    public double getContact() {
+        return Contact;
+    }
+
+    public void setContact(double Contact) {
+        this.Contact = Contact;
+    }
+
+    public double getCGPA() {
+        return CGPA;
+    }
+
+    public void setCGPA(double CGPA) {
+        this.CGPA = CGPA;
+    }
+
+    public String getStudId() {
+        return StudId;
+    }
+
+    public void setStudId(String StudId) {
+        this.StudId = StudId;
+    }
+
+    public String getStudName() {
+        return StudName;
+    }
+
+    public void setStudName(String StudName) {
+        this.StudName = StudName;
+    }
+
+    public String getStream() {
+        return Stream;
+    }
+
+    public void setStream(String Stream) {
+        this.Stream = Stream;
+    }
+
+    public String getYear() {
+        return Year;
+    }
+
+    public void setYear(String Year) {
+        this.Year = Year;
+    }
+}

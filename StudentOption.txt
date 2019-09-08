@@ -1,0 +1,32 @@
+package Recruitment.gui;
+import Recruitment.dbutil.DBConnection;
+import Recruitment.pojo.UserProfile;
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+public class StudentOptionsFrame extends javax.swing.JFrame {
+ private String getOption()
+    {
+        if(jrbCampusDetails.isSelected())
+            return jrbCampusDetails.getText();
+        else if(jrbFillForm.isSelected())
+            return jrbFillForm.getText();
+        else
+            return null;
+    }
+private void btnDoTaskActionPerformed(java.awt.event.ActionEvent evt) {                                          
+         String task=getOption();
+        if(task==null)
+        {
+           JOptionPane.showMessageDialog(null,"please choose an option","Error",JOptionPane.ERROR_MESSAGE);
+           return;
+        }
+        JFrame jf=null;
+        if(task.equalsIgnoreCase("Campus Details"))
+           jf=new CampusPanel();
+        else if(task.equalsIgnoreCase("Fill Registration Form"))
+           jf=new PersonalDetails();
+        jf.setVisible(true);
+        this.dispose();
+    }   
+}          

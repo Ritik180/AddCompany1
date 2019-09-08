@@ -18,8 +18,7 @@ public class CampusPanel extends javax.swing.JFrame {
         showDataInTable(); 
     }
 
- private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        StudentOptionsFrame studentFrame=new StudentOptionsFrame();
+ private void btnBackActionPerformed(java.awt.event.ActionEvent evt) { StudentOptionsFrame studentFrame=new StudentOptionsFrame();
         studentFrame.setVisible(true);
         this.dispose();
     }                                       

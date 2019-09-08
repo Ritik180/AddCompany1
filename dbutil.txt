@@ -1,0 +1,36 @@
+package Recruitment.dbutil;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
+public class DBConnection {
+ private static Connection conn;
+ static
+{
+     try
+     {
+      Class.forName("oracle.jdbc.OracleDriver");
+      conn=DriverManager.getConnection("jdbc:oracle:thin:@//LAPTOP-QBLHTN94:1521/XE","campus","ies");
+      JOptionPane.showMessageDialog(null,"Connected Successfully To The Database","Success!",JOptionPane.INFORMATION_MESSAGE);
+     }
+     catch(ClassNotFoundException ex)
+     {
+      JOptionPane.showMessageDialog(null,"Error Loading Driver Class"+ex,"Error",JOptionPane.ERROR_MESSAGE);
+      ex.printStackTrace();
+     }
+     catch(SQLException sq)
+     {
+      JOptionPane.showMessageDialog(null,"SQL Error"+sq,"Error!",JOptionPane.ERROR_MESSAGE);
+      sq.printStackTrace();
+     }  
+ }
+ public static Connection getConnection()
+ {
+     return conn;
+ }
+ public static void closeConnection()
+ {        
+}
+}

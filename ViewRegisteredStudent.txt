@@ -1,0 +1,61 @@
+package Recruitment.gui;
+import Recruitment.dao.StudentDao;
+import Recruitment.pojo.Student;
+import Recruitment.pojo.UserProfile;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+public class ViewRegisteredStudents extends javax.swing.JFrame {
+    public ViewRegisteredStudents() {
+        initComponents();
+        super.setLocationRelativeTo(null);
+        lblUsername.setText("Hello "+UserProfile.getUsername());
+        showDataInTable();
+    }
+ private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        AdminOptionsFrame adminFrame=new AdminOptionsFrame();
+        adminFrame.setVisible(true);
+        this.dispose();
+    }                                       
+
+    private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {                                       
+        lblLogout.setForeground(Color.YELLOW);
+    }                                      
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {                                       
+        this.dispose();
+        LoginFrame loginFrame=new LoginFrame();
+        loginFrame.setVisible(true); 
+    }                                      
+
+    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {                                      
+        lblLogout.setForeground(Color.BLACK);
+    }public void showDataInTable()
+    {
+        try
+        {
+            ArrayList<Student> studList=StudentDao.getAllData();
+           if(studList.isEmpty()==true)
+               JOptionPane.showMessageDialog(null,"Sorry..!!!No Records Present","Error",JOptionPane.INFORMATION_MESSAGE);
+           else
+           {
+               Object[]rows=new Object[5];
+               DefaultTableModel model=(DefaultTableModel)jtStudList.getModel();
+               for(Student e:studList)
+               {
+                   rows[0]=e.getStudName();
+                   rows[1]=e.getStudId();
+                   rows[2]=e.getStream();
+                   rows[3]=e.getYear();
+                   rows[4]=e.getCompany();
+                   model.addRow(rows);
+               }
+           }
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,"error while connecting to db","Exception",JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+}

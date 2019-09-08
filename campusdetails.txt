@@ -1,9 +1,6 @@
 package Recruitment.gui;
-
 import Recruitment.dao.CompanyDao;
 import Recruitment.pojo.Company;
-import Recruitment.pojo.UserProfile;
-import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -13,29 +10,15 @@ public class CampusPanel extends javax.swing.JFrame {
    
     public CampusPanel() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        lblUsername.setText("Hello "+UserProfile.getUsername());
-        showDataInTable(); 
+ showDataInTable(); 
     }
-
- private void btnBackActionPerformed(java.awt.event.ActionEvent evt) { StudentOptionsFrame studentFrame=new StudentOptionsFrame();
+private void btnBackActionPerformed(java.awt.event.ActionEvent evt) { StudentOptionsFrame studentFrame=new StudentOptionsFrame();
         studentFrame.setVisible(true);
         this.dispose();
-    }                                       
-
-    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {                                       
-        this.dispose();
+    }                               private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {         this.dispose();
         LoginFrame loginFrame=new LoginFrame();
         loginFrame.setVisible(true);
-    }                                      
-
-    private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {                                       
-        lblLogout.setForeground(Color.YELLOW);
-    }                                      
-
-    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {                                      
-        lblLogout.setForeground(Color.WHITE);
-    }                                     
+    }                              
 public void showDataInTable()
     {
         try

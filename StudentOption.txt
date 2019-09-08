@@ -4,8 +4,7 @@ import javax.swing.JOptionPane;
 public class StudentOptionsFrame extends javax.swing.JFrame {
 public StudentOptionsFrame() {
         initComponents();
-return;
-}
+return;}
  private String getOption()
     {
         if(jrbCampusDetails.isSelected())

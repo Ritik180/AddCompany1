@@ -1,0 +1,104 @@
+package Recruitment.dao;
+import Recruitment.dbutil.DBConnection;
+import Recruitment.pojo.Student;
+import java.sql.*;
+import java.util.*;
+
+public class StudentDao {
+     public static boolean addDetails(Student s)throws SQLException
+    {
+        Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement("insert into personal_details values(?,?,?,?,?,?,?,?,?)");
+        ps.setString(1,s.getStudName());
+        ps.setString(2,s.getStudId());
+        ps.setString(3,s.getStream());
+        ps.setDouble(4,s.getCGPA());
+        ps.setString(5,s.getGender());
+        ps.setString(6,s.getYear());
+        ps.setString(7,s.getAddress());
+        ps.setDouble(8,s.getContact());
+        ps.setString(9,s.getCompany());
+   int count= ps.executeUpdate();
+   if(count==0)
+       return false;
+   else 
+       return true;
+}
+     
+      public static ArrayList<Student> getGender() throws SQLException
+    {
+        Connection conn=DBConnection.getConnection();
+        String qry="Select * from add_gender";
+        Statement st=conn.createStatement();
+        ResultSet rs=st.executeQuery(qry);
+        ArrayList<Student> genderList=new ArrayList<Student>();
+        while(rs.next())
+        {
+            Student s=new Student();
+            s.setGender(rs.getString("stream"));
+            genderList.add(s);
+        }
+        return genderList;        
+    }
+      
+        public static ArrayList<Student> getYear() throws SQLException
+    {
+        Connection conn=DBConnection.getConnection();
+        String qry="Select * from add_year";
+        Statement st=conn.createStatement();
+        ResultSet rs=st.executeQuery(qry);
+        ArrayList<Student> yearList=new ArrayList<Student>();
+        while(rs.next())
+        {
+            Student s=new Student();
+            s.setYear(rs.getString("year"));
+            yearList.add(s);
+        }
+        return yearList;        
+    }
+        
+    public static ArrayList<Student> getStream() throws SQLException
+    {
+        Connection conn=DBConnection.getConnection();
+        String qry="Select * from stream";
+        Statement st=conn.createStatement();
+        ResultSet rs=st.executeQuery(qry);
+        ArrayList<Student> streamList=new ArrayList<Student>();
+        while(rs.next())
+        {
+            Student s=new Student();
+            s.setStream(rs.getString("stream"));
+            streamList.add(s);
+        }
+        return streamList;        
+    }
+    
+    public static ArrayList<Student> getCompany() throws SQLException
+    {
+        Connection conn=DBConnection.getConnection();
+        String qry="Select company_name from company";
+        Statement st=conn.createStatement();
+        ResultSet rs=st.executeQuery(qry);
+        ArrayList<Student> compList=new ArrayList<Student>();
+        while(rs.next())
+        {
+            Student s=new Student();
+            s.setCompany(rs.getString("company_name"));
+            compList.add(s);
+        }
+        return compList;        
+    }
+    
+    public static boolean removeStudent(String s,String e)throws SQLException
+    {
+    Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement("delete from personal_details where stud_name=? and stud_id=?");
+        ps.setString(1,s);
+        ps.setString(2,e);
+        int count=ps.executeUpdate();
+        if(count==0)
+        return false;
+        else
+        return true;
+}
+}
